@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Amit Meme Generator</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="my-style.css">
+</head>
+
+<body>
+    <div class="preload-fonts">
+        <span style="font-family: 'ColorYourWorld'"></span>
+        <span style="font-family: 'JellyCrazies'"></span>
+        <span style="font-family: 'PoptyPing'"></span>
+        <span style="font-family: 'angrybirds'"></span>
+    </div>
+    <header>
+        <div class="container header-container flex space-between">
+            <h1 class="logo header-logo">Amit &nbsp; - &nbsp; Memes</h1>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="burger"></i>
+                <i class="close"></i>
+            </button>
+            <nav class="nav-container">
+                <ul class="main-menu clean-list flex" id="mainMenu">
+                    <li onclick="toggleMenu()">
+                        <a href="#image-container">create a meme</a>
+                    </li>
+                    <li onclick="toggleMenu()">
+                        <a href="#about">about</a>
+                    </li>
+                    <li onclick="toggleMenu()">
+                        <a href="#get-in-touch">get in touch</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="search"></div>
+        <label for="text"></label>
+        <input type="search" name="search tags" placeholder="search for keywords/tags" onkeyup="searchItem(this.value)">
+        <div class="container useful-keywords-container"></div>
+        <section id="image-container" class="container image-container"></section>
+        <section id="about" class="about-container">
+            <div class="container column flex">
+                <img class="profile-img" src="img/profile_pic.jpg">
+                <div class="about-me">
+                    <h1>
+                        Amit &nbsp; Livne
+                    </h1>
+                    <p>Hello! I'm Amit Livne - a full stack developer.
+                        <br> Welcome to the best Meme Generator ever</p>
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <section id="get-in-touch" class="container contact-container">
+            <h1 class="brand"></h1>
+            <div class="wrapper">
+                <div class="about-me">
+                    <h3>Amit Livne</h3>
+                    <ul>
+                        <li>
+                            <i class="fa fa-envelope"></i> amitush.l@gmail.com</li>
+                        <li></li>
+                        <i class="fa fa-phone"></i> +972-54-7215010</li>
+                    </ul>
+                </div>
+                <div class="contact">
+                    <h1>contact &nbsp; me</h1>
+                    <form>
+                        <p>
+                            <label>Name</label>
+                            <input type="text" placeholder="Your full name" name="name">
+                        </p>
+                        <p>
+                            <label>eMail</label>
+                            <input type="email" placeholder="name@example.com" name="eMail">
+                        </p>
+                        <p>
+                            <label>Phone number</label>
+                            <input type="text" name="Phone">
+                        </p>
+                        <p class="full">
+                            <label>Message</label>
+                            <textarea name="message" rows="5" placeholder="Type message here"></textarea>
+                        </p>
+                        <p class="full">
+                            <button>Submit</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+
+    <div id="clickedImageModal" class="modal-wrapper">
+        <div class="modal">
+            <canvas id="image-canvas">
+                Update your browser to enjoy canvas!
+            </canvas>
+            <div class="meme-editor-area">
+                <a class="btn close-modal" onclick="toggleModal()">
+                    <i class="fa fa-window-close-o"></i>
+                </a>
+                <form class="first-title">
+                    <input type="text" placeholder="Type your text here" onkeyup="printTxt2Canvas(this, 0)" required class="text-to-add-1">
+                    <div class="move-btns">
+                        <label for="move">move text: </label>
+                        <span class="arrow" onclick="moveText('xCoord', -1)">
+                            <i class="fa fa-chevron-circle-left"></i>
+                        </span>
+                        <span class="arrow" onclick="moveText('xCoord', 1)">
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </span>
+                        <span class="arrow" onclick="moveText('yCoord', -1)">
+                            <i class="fa fa-chevron-circle-up"></i>
+                        </span>
+                        <span class="arrow" onclick="moveText('yCoord', 1)">
+                            <i class="fa fa-chevron-circle-down"></i>
+                        </span>
+                    </div>
+                    <div class="text-align-btns">
+                        <label for="move">align text: </label>
+                        <span class="text-align" onclick="setTextAlign('left')">
+                            <i class="fa fa-align-left"></i>
+                        </span>
+                        <span class="text-align" onclick="setTextAlign('center')">
+                            <i class="fa fa-align-center"></i>
+                        </span>
+                        <span class="text-align" onclick="setTextAlign('right')">
+                            <i class="fa fa-align-right"></i>
+                        </span>
+                    </div>
+                    <div class="text-shadow">
+                        <label for="move">text shadow: </label>
+                        <span class="shadow" onclick="toggleShadow(this)">T</span>
+
+                    </div>
+                    <div class="pick-color flex">
+                        <label for="move">Pick a color &nbsp;</label>
+                        <input class="color" placeholder="color" type="color" name="favcolor" value="#ffffff" onchange="changeColor(this)">
+                    </div>
+
+                    <div class="font-style">
+                        <label class "font" for="font">Font Style </label>
+                        <select onchange="changeFont(this)">
+                            <option value="ColorYourWorld">Color Your World</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Impact">Impact</option>
+                            <option value="angrybirds">Angry Birds</option>
+                            <option value="JellyCrazies">Jelly Crazies</option>
+                            <option value="PoptyPing">Popty Ping</option>
+                        </select>
+                    </div>
+
+                    <div class="font-size flex">
+                        <label for="fontSize ">Font Size &nbsp;</label>
+                        <input class="size" type="range" id="font-size" name="fontSize" min="8" max="100" value="20" onchange="showFontSize(this)"
+                        />
+                    </div>
+
+                    <input type="text" placeholder="Type your text here" onkeyup="printTxt2Canvas(this, 1)" required class="text-to-add-2">
+
+                </form>
+                <div class="modal-btns">
+                    <a class="btn download" id="download" download="myMeme.png" onclick="downloadMeme(this)">
+                        <i class="fa fa-download"> Download</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
